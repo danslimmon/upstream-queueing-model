@@ -11,6 +11,11 @@ type LatencyBucket struct {
 
 type LatencyDistribution struct {
 	buckets []LatencyBucket
+    /*
+    // Used to calculate average latency
+    sum int
+    n int
+    */
 }
 
 func (dist *LatencyDistribution) ProcessingInterval() int {
@@ -26,8 +31,26 @@ func (dist *LatencyDistribution) ProcessingInterval() int {
 	}
 
 	v := min + rand.Intn(max-min)
+    /*
+    dist.sum += v
+    dist.n += 1
+    */
 	return v
 }
+
+/*
+// Average returns the average of all values returned from ProcessingInterval so far.
+//
+// Returns -1 if called before any calls to ProcessingInterval.
+func (dist *LatencyDistribution) Average() int {
+    if dist.n == 0 {
+        return -1
+    }
+    return int(float64(dist.sum) / float64(dist.n) + 0.5)
+}
+
+func (dist *LatencyDistribution) Variance() 
+*/
 
 func NewLatencyDistribution(buckets []LatencyBucket) (*LatencyDistribution, error) {
 	return &LatencyDistribution{

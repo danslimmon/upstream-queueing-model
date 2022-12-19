@@ -134,6 +134,10 @@ func NewUpstream() *Upstream {
 
 func main() {
     // percentiles come from system telemetry
+    /*
+    name=alpha
+    avg=303434
+    variance=
 	latencyDist, err := NewLatencyDistribution([]LatencyBucket{
 		LatencyBucket{0.0, 10000},
 		LatencyBucket{0.5, 75000},
@@ -145,9 +149,43 @@ func main() {
 		// distributed between P99 and P100. hard to get more detail out of telemetry.
 		LatencyBucket{1.0, 6420000},
 	})
+    */
+    /*
+    name=bravo
+    avg=303457
+    variance=
+    */
+    /*
+	latencyDist, err := NewLatencyDistribution([]LatencyBucket{
+		LatencyBucket{0.0, 110000},
+		LatencyBucket{0.5, 145000},
+		LatencyBucket{0.75, 292000},
+		LatencyBucket{0.90, 801000},
+		LatencyBucket{1.0, 1285000},
+	})
+    */
+    /*
+    name=charlie
+    avg=303332
+    variance=
+    */
+	latencyDist, err := NewLatencyDistribution([]LatencyBucket{
+		LatencyBucket{0.0, 110000},
+		LatencyBucket{0.5, 200000},
+		LatencyBucket{0.75, 402000},
+		LatencyBucket{1.0, 802000},
+	})
 	if err != nil {
 		panic(err.Error())
 	}
+/*
+    sum := 0
+    for i := 0; i < 1000000; i++ {
+        sum += latencyDist.ProcessingInterval()
+    }
+    fmt.Printf("%d\n", int(0.5+float64(sum)/1000000.0))
+}
+*/
 
 	fmt.Printf("queue_time,total_time,reqs_per_sec,pct_time_queued,pct_capacity_used,avg_secs_queued\n")
 	for reqsPerSec := 14.0; reqsPerSec < 39.0; reqsPerSec += .05 {
